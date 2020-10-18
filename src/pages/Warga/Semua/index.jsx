@@ -1,11 +1,11 @@
 import React from "react";
 
-const Story = () => {
+const Semua = () => {
   return (
     <div>
-      <h1>STORY</h1>
+      <h1>SMUA</h1>
     </div>
   );
 };
 
-export default Story;
+export default Semua;

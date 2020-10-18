@@ -1,11 +1,11 @@
 import React from "react";
 
-const About = () => {
+const Ktp = () => {
   return (
     <div>
-      <h1>ABOUT</h1>
+      <h1>KTPLIST</h1>
     </div>
   );
 };
 
-export default About;
+export default Ktp;

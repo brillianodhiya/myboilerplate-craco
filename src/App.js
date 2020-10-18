@@ -1,110 +1,224 @@
 import React from "react";
-import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter,
+  Switch as SwitchRoute,
+  Route,
+  Link,
+} from "react-router-dom";
 import "./App.less";
 import Loading from "./components/loading/Loading";
-import { Layout, Menu, BackTop } from "antd";
-import LiLiaLogo from "./assets/lilia_logo.png";
-import Background from "./assets/header.gif";
+import {
+  Layout,
+  Menu,
+  BackTop,
+  Avatar,
+  Typography,
+  Divider,
+  Result,
+  Button,
+  Switch,
+  Dropdown,
+} from "antd";
+import {
+  FileOutlined,
+  TeamOutlined,
+  DashboardFilled,
+  DownOutlined,
+} from "@ant-design/icons";
 import routes from "./routes";
+import Abah from "./assets/abah.jpeg";
+import Login from "./pages/Login/Login";
 
-const { Header, Content, Footer } = Layout;
+const { SubMenu } = Menu;
 
-const Home = React.lazy(() => import("./pages/home/home"));
+const { Header, Content, Footer, Sider } = Layout;
 
-// const SS = withRouter(() => {
-
-// })
+const ProfileInfo = {
+  name: "Imam Mujiono Singo",
+  img: Abah,
+};
 
 const App = () => {
-  const [path, setPath] = React.useState("/home");
+  const [path, setPath] = React.useState("/dashboard");
+  const [breakPointPosition, setBreakPointPosition] = React.useState(false);
+  const [mode, setMode] = React.useState("dark");
+
+  const urlData = window.location.pathname;
 
   React.useEffect(() => {
-    setPath(
-      window.location.pathname === "/" ? "/home" : window.location.pathname
-    );
-  }, [window.location.pathname]);
+    setPath(urlData === "/" ? "/dashboard" : urlData);
+  }, [urlData]);
 
   return (
-    <>
-      <BrowserRouter>
-        <section
-          style={{
-            //   textAlign: "center",
-            paddingTop: 28,
-            //   paddingBottom: 28,
-            background: `url(${Background}) no-repeat`,
-            backgroundSize: "cover",
-            backgroundPosition: "center center",
-          }}
-        >
-          <img style={{ width: 180 }} src={LiLiaLogo} alt="LiLia Sekai" />
-          {/* <Space align="start"></Space> */}
-          <Layout className="layout" style={{ background: "unset" }}>
-            <Header style={{ background: "unset" }}>
-              <div className="logo" />
-              <Menu
+    <BrowserRouter>
+      <SwitchRoute>
+        <Route path="/login" exact={true} name="Login" component={Login} />
+      </SwitchRoute>
+      {urlData !== "/login" && (
+        <Layout style={{ minHeight: "100vh" }}>
+          <Sider
+            breakpoint="lg"
+            width="280"
+            theme={mode}
+            collapsedWidth="0"
+            onBreakpoint={(broken) => {
+              console.log(broken);
+              setBreakPointPosition(broken);
+            }}
+            onCollapse={(collapsed, type) => {
+              console.log(collapsed, type);
+            }}
+          >
+            <div style={{ textAlign: "right", padding: "24px" }}>
+              <Switch
+                checked={mode === "dark" ? true : false}
+                onChange={(checked) => setMode(checked ? "dark" : "light")}
+                checkedChildren="Dark"
+                unCheckedChildren="Light"
+              />
+            </div>
+            <a href="">
+              <div style={{ textAlign: "center", paddingTop: "24px" }}>
+                <Avatar size={112} src={ProfileInfo.img} />
+                <Typography.Title
+                  style={{
+                    marginTop: "20px",
+                    color: mode === "dark" ? "#fff" : undefined,
+                  }}
+                  level={4}
+                >
+                  {ProfileInfo.name.split(" ").map((val, idx) => {
+                    if (idx === 0) {
+                      return <span style={{ color: "crimson" }}>{val}</span>;
+                    } else {
+                      return " " + val;
+                    }
+                  })}
+                </Typography.Title>
+              </div>
+            </a>
+            <Divider />
+            <Menu
+              theme={mode}
+              onSelect={(info) => setPath(info.selectedKeys[0])}
+              selectedKeys={[path]}
+              mode="inline"
+            >
+              <Menu.Item key="/dashboard" icon={<DashboardFilled />}>
+                <Link to="/">Dashboard</Link>
+              </Menu.Item>
+              <SubMenu key="warga" icon={<TeamOutlined />} title="Warga">
+                <Menu.Item key="/warga/semua">
+                  <Link to="/warga/semua">Semua</Link>
+                </Menu.Item>
+                <Menu.Item key="/warga/ktp">
+                  <Link to="/warga/ktp">KTP</Link>
+                </Menu.Item>
+                <Menu.Item key="/warga/kk">
+                  <Link to="/warga/kk">KK</Link>
+                </Menu.Item>
+              </SubMenu>
+              <Menu.Item key="9" icon={<FileOutlined />} />
+            </Menu>
+          </Sider>
+          <Layout>
+            <Header
+              style={{
+                padding: 0,
+                textAlign: "right",
+                background: mode === "dark" ? undefined : "#fff",
+              }}
+            >
+              <span
                 style={{
-                  position: "relative",
-                  display: "flex",
-                  justifyContent: "center",
-                  background: "none",
+                  float: "left",
+                  padding: "20px",
                 }}
-                mode="horizontal"
-                onSelect={(e) => setPath(e.selectedKeys[0])}
-                // defaultSelectedKeys={["/home"]}
-                selectedKeys={[path]}
               >
-                <Menu.Item key="/home">
-                  <Link to="/">Home</Link>
-                </Menu.Item>
-                <Menu.Item key="/news">
-                  <Link to="/news">News</Link>
-                </Menu.Item>
-                <Menu.Item key="/projects">
-                  <Link to="/projects">Projects</Link>
-                </Menu.Item>
-                <Menu.Item key="/gallery">
-                  <Link to="/gallery">Gallery</Link>
-                </Menu.Item>
-                <Menu.Item key="/story">
-                  <Link to="/story">Story</Link>
-                </Menu.Item>
-                <Menu.Item key="/about">
-                  <Link to="/about">About Us</Link>
-                </Menu.Item>
-              </Menu>
+                <Typography.Title
+                  level={4}
+                  style={{ color: mode === "dark" ? "#fff" : undefined }}
+                >
+                  RT 20 App
+                </Typography.Title>
+              </span>
+              <Dropdown
+                overlay={
+                  <Menu>
+                    <Menu.Item key="0">
+                      <a>Pengaturan Akun</a>
+                    </Menu.Item>
+                    <Menu.Item key="1">
+                      <a>Log Out</a>
+                    </Menu.Item>
+                    {/* <Menu.Divider />
+                  <Menu.Item key="3">3rd menu item</Menu.Item> */}
+                  </Menu>
+                }
+                trigger={["click"]}
+              >
+                <a
+                  style={{ marginRight: "16px" }}
+                  className="ant-dropdown-link"
+                  onClick={(e) => e.preventDefault()}
+                >
+                  Akun <DownOutlined />
+                </a>
+              </Dropdown>
             </Header>
+            <Content>
+              <div>
+                <React.Suspense fallback={Loading()}>
+                  {routes.filter((val) => val.path === window.location.pathname)
+                    .length > 0 ? (
+                    <SwitchRoute>
+                      {routes.map((route, idx) => {
+                        return route.component ? (
+                          <Route
+                            key={idx}
+                            path={route.path}
+                            exact={route.exact}
+                            name={route.name}
+                            responsive={breakPointPosition}
+                            render={(props) => (
+                              <route.component {...props} name={route.name} />
+                            )}
+                          />
+                        ) : null;
+                      })}
+                    </SwitchRoute>
+                  ) : (
+                    <Result
+                      status="404"
+                      title="404"
+                      subTitle="Sorry, the page you visited does not exist."
+                      extra={
+                        <Button
+                          type="primary"
+                          onClick={() => window.location.replace("/")}
+                        >
+                          Back Home
+                        </Button>
+                      }
+                    />
+                  )}
+                </React.Suspense>
+              </div>
+            </Content>
+            <Footer
+              style={{
+                textAlign: "center",
+                fontWeight: "bold",
+                borderTop: "1px solid black",
+              }}
+            >
+              Copyright © 2020 Created by LiLia Sekai Corp.
+            </Footer>
+            <BackTop />
           </Layout>
-        </section>
-        <Content>
-          <React.Suspense fallback={Loading()}>
-            <Switch>
-              {routes.map((route, idx) => {
-                return route.component ? (
-                  <Route
-                    key={idx}
-                    path={route.path}
-                    exact={route.exact}
-                    name={route.name}
-                    render={(props) => (
-                      <route.component {...props} name={route.name} />
-                    )}
-                  />
-                ) : null;
-              })}
-              {/* <Route path="/" render={() => <Home />} />
-            <Route path="/home" render={() => <Home />} /> */}
-            </Switch>
-          </React.Suspense>
-        </Content>
-        <Footer>
-          <div style={{ textAlign: "center", width: "100%" }}>
-            LiLia Sekai ©2020 Created by LiLia
-          </div>
-        </Footer>
-        <BackTop />
-      </BrowserRouter>
-    </>
+        </Layout>
+      )}
+    </BrowserRouter>
   );
 };
 

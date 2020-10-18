@@ -1,20 +1,21 @@
 import React from "react";
 
-const Home = React.lazy(() => import("./pages/home/home"));
-const Gallery = React.lazy(() => import("./pages/gallery/Gallery"));
-const About = React.lazy(() => import("./pages/about/About"));
-const News = React.lazy(() => import("./pages/news/News"));
-const Projects = React.lazy(() => import("./pages/projects/Projects"));
-const Story = React.lazy(() => import("./pages/story/Story"));
+const Dashboard = React.lazy(() => import("./pages/Dashboard/index"));
+const SemuaWarga = React.lazy(() => import("./pages/Warga/Semua"));
+const KtpList = React.lazy(() => import("./pages/Warga/KTP"));
+const KkList = React.lazy(() => import("./pages/Warga/KK"));
+
+// React.lazy(() => import())
+
+// { path: "",  name: "", component: , exact: },
 
 const routes = [
-  { path: "/", name: "Home", component: Home, exact: true },
-  { path: "/home", name: "Home", component: Home, exact: true },
-  { path: "/gallery", name: "Gallery", component: Gallery, exact: true },
-  { path: "/about", name: "About", component: About, exact: true },
-  { path: "/news", name: "News", component: News, exact: true },
-  { path: "/projects", name: "Projects", component: Projects, exact: true },
-  { path: "/story", name: "Story", component: Story, exact: true },
+  { path: "/", name: "Dashboard", component: Dashboard, exact: true },
+  { path: "/dashboard", name: "Dashboard", component: Dashboard, exact: true },
+  { path: "/warga", name: "Warga", component: SemuaWarga, exact: true },
+  { path: "/warga/semua", name: "Warga", component: SemuaWarga },
+  { path: "/warga/ktp", name: "KTP List", component: KtpList },
+  { path: "/warga/kk", name: "KK List", component: KkList },
 ];
 
 export default routes;

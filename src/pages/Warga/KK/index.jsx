@@ -1,11 +1,11 @@
 import React from "react";
 
-const News = () => {
+const KkList = () => {
   return (
     <div>
-      <h1>NEWS</h1>
+      <h1>KK LIST</h1>
     </div>
   );
 };
 
-export default News;
+export default KkList;

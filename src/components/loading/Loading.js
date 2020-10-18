@@ -1,6 +1,6 @@
 import React from "react";
 import { Spin } from "antd";
-import Loading from "../../assets/LiLiaLoading.png";
+// import Loading from "../../assets/LiLiaLoading.png";
 
 const WeLoading = () => {
   return (
@@ -20,12 +20,12 @@ const WeLoading = () => {
           zIndex: 1,
         }}
       >
-        <img
+        {/* <img
           src={Loading}
           style={{ width: "128px", opacity: "0.5" }}
           alt="no image"
-        />
-        {/* <Spin spinning /> */}
+        /> */}
+        <Spin spinning />
       </div>
     </div>
   );
