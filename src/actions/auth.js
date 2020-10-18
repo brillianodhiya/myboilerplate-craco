@@ -13,6 +13,9 @@ const dataDummy = {
 
 const Login = (data, setLoading, cb) => {
   setLoading(true);
+  cb({
+    type: "AUTH WAITING",
+  });
   return setTimeout(() => {
     setLoading(false);
     if (
@@ -20,12 +23,16 @@ const Login = (data, setLoading, cb) => {
       data.password === dataDummy.password
     ) {
       message.success("Success Logined!");
-      cb(dataDummy);
+      cb({
+        type: "AUTH SUCCESS",
+        data: dataDummy,
+      });
     } else {
       message.error("Error username atau password salah!");
       cb({
         error: "403",
         message: "Username atau passowrd salah",
+        type: "AUTH ERROR",
       });
     }
   }, 3000);

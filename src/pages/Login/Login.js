@@ -3,9 +3,12 @@ import { Form, Input, Button, Checkbox, Typography, Divider } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import Logo from "../../assets/lilia_logo.png";
 import { Login as LoginService } from "../../actions/auth";
+import { useSelector, useDispatch } from "react-redux";
 
 const Login = () => {
   const [loading, setLoading] = React.useState(false);
+  const authState = useSelector((state) => state);
+  const dispatch = useDispatch();
 
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
@@ -20,10 +23,13 @@ const Login = () => {
       { username: values.username, password: values.password },
       setLoading,
       (cb) => {
-        console.log(cb, "CB");
+        // console.log(cb, "CB");
+        dispatch(cb);
       }
     );
   };
+
+  console.log(authState, "AUTH STATE");
 
   return (
     <div>
