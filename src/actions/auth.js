@@ -1,5 +1,4 @@
 import { message } from "antd";
-import React from "react";
 import Abah from "../assets/abah.jpeg";
 
 const dataDummy = {
@@ -23,6 +22,7 @@ const Login = (data, setLoading, cb) => {
       data.password === dataDummy.password
     ) {
       message.success("Success Logined!");
+      delete dataDummy.password;
       cb({
         type: "AUTH SUCCESS",
         data: dataDummy,

@@ -1,20 +1,35 @@
-const auth = (state = { data: {}, loading: false }, action) => {
+const auth = (
+  state = { data: { loading: false, profile: {}, logined: false } },
+  action
+) => {
   switch (action.type) {
     case "AUTH WAITING":
-      state.loading = true;
-      return (state.data = {});
+      return (state.data = {
+        loading: true,
+        profile: {},
+        logined: false,
+      });
 
     case "AUTH SUCCESS":
-      state.loading = false;
-      return (state.data = action.data);
+      return (state.data = {
+        loading: false,
+        profile: action.data,
+        logined: true,
+      });
 
     case "AUTH ERROR":
-      state.loading = false;
-      return (state.data = {});
+      return (state.data = {
+        loading: false,
+        profile: {},
+        logined: false,
+      });
 
     default:
-      state.loading = false;
-      return (state.data = {});
+      return (state.data = {
+        loading: false,
+        profile: {},
+        logined: false,
+      });
   }
 };
 
