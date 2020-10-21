@@ -24,6 +24,13 @@ const auth = (
         logined: false,
       });
 
+    case "AUTH OUT":
+      return (state.data = {
+        loading: false,
+        profile: {},
+        logined: false,
+      });
+
     default:
       return (state.data = {
         loading: false,

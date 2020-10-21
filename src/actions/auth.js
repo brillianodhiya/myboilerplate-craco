@@ -35,7 +35,7 @@ const Login = (data, setLoading, cb) => {
         type: "AUTH ERROR",
       });
     }
-  }, 3000);
+  }, 2000);
 };
 
 export { Login };

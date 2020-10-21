@@ -17,17 +17,12 @@ import {
   Result,
   Button,
   Switch,
-  Dropdown,
 } from "antd";
-import {
-  FileOutlined,
-  TeamOutlined,
-  DashboardFilled,
-  DownOutlined,
-} from "@ant-design/icons";
+import { FileOutlined, TeamOutlined, DashboardFilled } from "@ant-design/icons";
 import routes from "./routes";
 import Abah from "./assets/abah.jpeg";
 import Login from "./pages/Login/Login";
+import AppHeader from "./components/header/AppHeader";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import configureStore from "./reducers/index";
@@ -36,7 +31,7 @@ const { store, persistor } = configureStore();
 
 const { SubMenu } = Menu;
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Content, Footer, Sider } = Layout;
 
 const ProfileInfo = {
   name: "Imam Mujiono Singo",
@@ -131,50 +126,7 @@ const App = () => {
                 </Menu>
               </Sider>
               <Layout>
-                <Header
-                  style={{
-                    padding: 0,
-                    textAlign: "right",
-                    background: mode === "dark" ? undefined : "#fff",
-                  }}
-                >
-                  <span
-                    style={{
-                      float: "left",
-                      padding: "20px",
-                    }}
-                  >
-                    <Typography.Title
-                      level={4}
-                      style={{ color: mode === "dark" ? "#fff" : undefined }}
-                    >
-                      RT 20 App
-                    </Typography.Title>
-                  </span>
-                  <Dropdown
-                    overlay={
-                      <Menu>
-                        <Menu.Item key="0">
-                          <a>Pengaturan Akun</a>
-                        </Menu.Item>
-                        <Menu.Item key="1">
-                          <a>Log Out</a>
-                        </Menu.Item>
-                        {/* <Menu.Divider />
-                  <Menu.Item key="3">3rd menu item</Menu.Item> */}
-                      </Menu>
-                    }
-                    trigger={["click"]}
-                  >
-                    <a
-                      style={{ marginRight: "16px" }}
-                      className="ant-dropdown-link"
-                      onClick={(e) => e.preventDefault()}
-                    >
-                      Akun <DownOutlined />
-                    </a>
-                  </Dropdown>
-                </Header>
+                <AppHeader mode={mode} />
                 <Content>
                   <div>
                     <React.Suspense fallback={Loading()}>

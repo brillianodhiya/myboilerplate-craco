@@ -29,7 +29,13 @@ const Login = () => {
     );
   };
 
-  console.log(authState, "AUTH STATE");
+  React.useEffect(() => {
+    if (authState.auth.logined) {
+      window.location.replace("/");
+    }
+  }, [authState]);
+
+  // console.log(authState, "AUTH STATE");
 
   return (
     <div>
