@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Input, Button, Checkbox, Typography, Divider } from "antd";
+import { Form, Input, Button, Checkbox, Typography } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import Logo from "../../assets/lilia_logo.png";
 import { Login as LoginService } from "../../actions/auth";
@@ -30,12 +30,14 @@ const Login = () => {
   };
 
   React.useEffect(() => {
-    if (authState.auth.logined) {
-      window.location.replace("/");
+    if (authState.auth.logined && !loading) {
+      setTimeout(() => {
+        window.location.replace("/");
+      }, 1000);
     }
-  }, [authState]);
+  }, [authState, loading]);
 
-  // console.log(authState, "AUTH STATE");
+  console.log(authState, "AUTH STATE");
 
   return (
     <div>
@@ -87,7 +89,7 @@ const Login = () => {
             <Checkbox>Ingatkan saya</Checkbox>
           </Form.Item>
 
-          <a className="login-form-forgot" href="">
+          <a className="login-form-forgot" href="#">
             Lupa password
           </a>
         </Form.Item>

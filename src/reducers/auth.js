@@ -1,5 +1,10 @@
+// import dayjs from "dayjs";
+import moment from "moment";
+
 const auth = (
-  state = { data: { loading: false, profile: {}, logined: false } },
+  state = {
+    data: { loading: false, profile: {}, logined: false, expiredAt: "Not Set" },
+  },
   action
 ) => {
   switch (action.type) {
@@ -8,6 +13,7 @@ const auth = (
         loading: true,
         profile: {},
         logined: false,
+        expiredAt: "Not Set",
       });
 
     case "AUTH SUCCESS":
@@ -15,6 +21,7 @@ const auth = (
         loading: false,
         profile: action.data,
         logined: true,
+        expiredAt: moment().add(3, "hours"),
       });
 
     case "AUTH ERROR":
@@ -22,6 +29,7 @@ const auth = (
         loading: false,
         profile: {},
         logined: false,
+        expiredAt: "Not Set",
       });
 
     case "AUTH OUT":
@@ -29,6 +37,7 @@ const auth = (
         loading: false,
         profile: {},
         logined: false,
+        expiredAt: "Not Set",
       });
 
     default:
@@ -36,6 +45,7 @@ const auth = (
         loading: false,
         profile: {},
         logined: false,
+        expiredAt: "Not Set",
       });
   }
 };

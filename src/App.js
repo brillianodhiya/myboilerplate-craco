@@ -21,11 +21,15 @@ import {
 import { FileOutlined, TeamOutlined, DashboardFilled } from "@ant-design/icons";
 import routes from "./routes";
 import Abah from "./assets/abah.jpeg";
-import Login from "./pages/Login/Login";
+import Login from "./pages/Login/Login.jsx";
 import AppHeader from "./components/header/AppHeader";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import configureStore from "./reducers/index";
+import moment from "dayjs";
+import "moment/locale/id";
+
+moment.locale("id");
 
 const { store, persistor } = configureStore();
 
@@ -112,8 +116,8 @@ const App = () => {
                     <Link to="/">Dashboard</Link>
                   </Menu.Item>
                   <SubMenu key="warga" icon={<TeamOutlined />} title="Warga">
-                    <Menu.Item key="/warga/semua">
-                      <Link to="/warga/semua">Semua</Link>
+                    <Menu.Item key="/warga/list">
+                      <Link to="/warga/list">Daftar Warga</Link>
                     </Menu.Item>
                     <Menu.Item key="/warga/ktp">
                       <Link to="/warga/ktp">KTP</Link>
@@ -126,9 +130,9 @@ const App = () => {
                 </Menu>
               </Sider>
               <Layout>
-                <AppHeader mode={mode} />
+                <AppHeader mode={mode} pageBreak={breakPointPosition} />
                 <Content>
-                  <div>
+                  <div style={{ padding: "32px" }}>
                     <React.Suspense fallback={Loading()}>
                       {routes.filter(
                         (val) => val.path === window.location.pathname
@@ -141,11 +145,11 @@ const App = () => {
                                 path={route.path}
                                 exact={route.exact}
                                 name={route.name}
-                                responsive={breakPointPosition}
                                 render={(props) => (
                                   <route.component
                                     {...props}
                                     name={route.name}
+                                    responsive={breakPointPosition}
                                   />
                                 )}
                               />

@@ -1,8 +1,9 @@
 import { combineReducers, createStore } from "redux";
 import { persistStore, persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage/session";
+// import storage from "redux-persist/lib/storage/session";
 import auth from "./auth";
 import hardSet from "redux-persist/lib/stateReconciler/hardSet";
+import localForage from "localforage";
 
 const rootreducers = combineReducers({
   auth,
@@ -10,7 +11,7 @@ const rootreducers = combineReducers({
 
 const persistConfig = {
   key: "primary",
-  storage,
+  storage: localForage,
   whitelist: ["auth"],
   // set to store
   stateReconciler: hardSet,

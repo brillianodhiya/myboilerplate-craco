@@ -13,9 +13,9 @@ const routes = [
   { path: "/", name: "Dashboard", component: Dashboard, exact: true },
   { path: "/dashboard", name: "Dashboard", component: Dashboard, exact: true },
   { path: "/warga", name: "Warga", component: SemuaWarga, exact: true },
-  { path: "/warga/semua", name: "Warga", component: SemuaWarga },
-  { path: "/warga/ktp", name: "KTP List", component: KtpList },
-  { path: "/warga/kk", name: "KK List", component: KkList },
+  { path: "/warga/list", name: "List Warga", component: SemuaWarga },
+  { path: "/warga/kk", name: "List KK", component: KkList },
+  { path: "/warga/ktp", name: "List KTP", component: KtpList },
 ];
 
 export default routes;

@@ -1,11 +1,13 @@
 import React from "react";
-import { Layout, Typography, Dropdown, Menu } from "antd";
+import { Layout, Typography, Dropdown, Menu, message } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
+import moment from "moment";
+import Clock from "react-live-clock";
 
 const { Header } = Layout;
 
-const AppHeader = ({ mode }) => {
+const AppHeader = ({ mode, pageBreak }) => {
   const authState = useSelector((state) => state);
   const dispatch = useDispatch();
 
@@ -13,7 +15,16 @@ const AppHeader = ({ mode }) => {
     if (!authState.auth.logined) {
       window.location.replace("/login");
     }
+    // console.log(moment(authState.auth.expiredAt).format("LLLL"));
+    if (moment(authState.auth.expiredAt).isBefore(moment())) {
+      message.warn("Session Login telah berakhir");
+      dispatch({ type: "AUTH OUT" });
+      setTimeout(() => {
+        window.location.replace("/login");
+      }, 1000);
+    }
   }, []);
+  console.log(authState);
 
   //   console.log(authState, "AUTHSTATE");
   return (
@@ -30,12 +41,21 @@ const AppHeader = ({ mode }) => {
           padding: "20px",
         }}
       >
-        <Typography.Title
-          level={4}
-          style={{ color: mode === "dark" ? "#fff" : undefined }}
-        >
-          RT 20 App
-        </Typography.Title>
+        {pageBreak ? (
+          <Typography.Title
+            level={4}
+            style={{ color: mode === "dark" ? "#fff" : undefined }}
+          >
+            RT 20 App
+          </Typography.Title>
+        ) : (
+          <Typography.Title
+            level={4}
+            style={{ color: mode === "dark" ? "#fff" : undefined }}
+          >
+            RT 20 App || <Clock format={"LLLL"} ticking={true} />
+          </Typography.Title>
+        )}
       </span>
       <Dropdown
         overlay={
