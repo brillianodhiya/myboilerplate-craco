@@ -125,6 +125,12 @@ const App = () => {
                     <Menu.Item key="/warga/kk">
                       <Link to="/warga/kk">KK</Link>
                     </Menu.Item>
+                    <Menu.Item key="/warga/status">
+                      <Link to="/warga/status">Status Warga</Link>
+                    </Menu.Item>
+                    <Menu.Item key="/warga/pekerjaan">
+                      <Link to="/warga/pekerjaan">Pekerjaan Warga</Link>
+                    </Menu.Item>
                   </SubMenu>
                   <Menu.Item key="9" icon={<FileOutlined />} />
                 </Menu>
