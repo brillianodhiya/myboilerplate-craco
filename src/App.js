@@ -18,9 +18,13 @@ import {
   Button,
   Switch,
 } from "antd";
-import { FileOutlined, TeamOutlined, DashboardFilled } from "@ant-design/icons";
+import {
+  FileOutlined,
+  TeamOutlined,
+  DashboardFilled,
+  FileDoneOutlined,
+} from "@ant-design/icons";
 import routes from "./routes";
-import Abah from "./assets/abah.jpeg";
 import Login from "./pages/Login/Login.jsx";
 import AppHeader from "./components/header/AppHeader";
 import { Provider } from "react-redux";
@@ -28,6 +32,8 @@ import { PersistGate } from "redux-persist/integration/react";
 import configureStore from "./reducers/index";
 import moment from "dayjs";
 import "moment/locale/id";
+import LogoWeiots from "assets/weiots-transparent.png";
+import LogoWeiots2 from "assets/logo1.png";
 
 moment.locale("id");
 
@@ -37,20 +43,31 @@ const { SubMenu } = Menu;
 
 const { Content, Footer, Sider } = Layout;
 
-const ProfileInfo = {
-  name: "Imam Mujiono Singo",
-  img: Abah,
-};
+// const ProfileInfo = {
+// name: "Imam Mujiono Singo",
+// img: Abah,
+// };
 
 const App = () => {
-  const [path, setPath] = React.useState("/dashboard");
+  const [path, setPath] = React.useState("/price-list");
   const [breakPointPosition, setBreakPointPosition] = React.useState(false);
-  const [mode, setMode] = React.useState("dark");
+  const [mode, setMode] = React.useState("light");
+
+  const [ProfileInfo, setProfileInfo] = React.useState({
+    name: "Admin WASP",
+    img: "",
+  });
+
+  const [collapse, setCollapse] = React.useState(false);
+
+  const [hide, setHide] = React.useState(false);
+
+  // console.log(ProfileInfo, "PROFILE INFO");
 
   const urlData = window.location.pathname;
 
   React.useEffect(() => {
-    setPath(urlData === "/" ? "/dashboard" : urlData);
+    setPath(urlData === "/" ? "/price-list" : urlData);
   }, [urlData]);
 
   return (
@@ -58,53 +75,49 @@ const App = () => {
       <PersistGate loading={<Loading />} persistor={persistor}>
         <BrowserRouter>
           <SwitchRoute>
-            <Route path="/login" exact={true} name="Login" component={Login} />
+            <Route
+              path="/login"
+              exact={true}
+              name="Login"
+              component={(props) => <Login {...props} />}
+            />
           </SwitchRoute>
           {urlData !== "/login" && (
             <Layout style={{ minHeight: "100vh" }}>
               <Sider
+                collapsed={collapse}
+                collapsible
                 breakpoint="lg"
-                width="280"
+                // width="280"
+                hidden={hide}
                 theme={mode}
-                collapsedWidth="0"
+                // collapsedWidth="0"
+
                 onBreakpoint={(broken) => {
                   console.log(broken);
                   setBreakPointPosition(broken);
                 }}
                 onCollapse={(collapsed, type) => {
-                  console.log(collapsed, type);
+                  // console.log(collapsed, type);
+                  setCollapse(collapsed);
                 }}
               >
-                <div style={{ textAlign: "right", padding: "24px" }}>
-                  <Switch
-                    checked={mode === "dark" ? true : false}
-                    onChange={(checked) => setMode(checked ? "dark" : "light")}
-                    checkedChildren="Dark"
-                    unCheckedChildren="Light"
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    padding: collapse ? "24px 0 0 4px" : "24px 0 0 0",
+                  }}
+                >
+                  <img
+                    src={collapse ? LogoWeiots2 : LogoWeiots}
+                    style={{
+                      position: "relative",
+                      width: collapse ? "50%" : "80%",
+                    }}
                   />
                 </div>
-                <a href="">
-                  <div style={{ textAlign: "center", paddingTop: "24px" }}>
-                    <Avatar size={112} src={ProfileInfo.img} />
-                    <Typography.Title
-                      style={{
-                        marginTop: "20px",
-                        color: mode === "dark" ? "#fff" : undefined,
-                      }}
-                      level={4}
-                    >
-                      {ProfileInfo.name.split(" ").map((val, idx) => {
-                        if (idx === 0) {
-                          return (
-                            <span style={{ color: "crimson" }}>{val}</span>
-                          );
-                        } else {
-                          return " " + val;
-                        }
-                      })}
-                    </Typography.Title>
-                  </div>
-                </a>
                 <Divider />
                 <Menu
                   theme={mode}
@@ -112,10 +125,10 @@ const App = () => {
                   selectedKeys={[path]}
                   mode="inline"
                 >
-                  <Menu.Item key="/dashboard" icon={<DashboardFilled />}>
-                    <Link to="/">Dashboard</Link>
+                  <Menu.Item key="/price-list" icon={<FileDoneOutlined />}>
+                    <Link to="/">Price List</Link>
                   </Menu.Item>
-                  <SubMenu key="warga" icon={<TeamOutlined />} title="Warga">
+                  {/* <SubMenu key="warga" icon={<TeamOutlined />} title="Warga">
                     <Menu.Item key="/warga/list">
                       <Link to="/warga/list">Daftar Warga</Link>
                     </Menu.Item>
@@ -131,12 +144,16 @@ const App = () => {
                     <Menu.Item key="/warga/pekerjaan">
                       <Link to="/warga/pekerjaan">Pekerjaan Warga</Link>
                     </Menu.Item>
-                  </SubMenu>
-                  <Menu.Item key="9" icon={<FileOutlined />} />
+                  </SubMenu> */}
                 </Menu>
               </Sider>
               <Layout>
-                <AppHeader mode={mode} pageBreak={breakPointPosition} />
+                <AppHeader
+                  setHide={setCollapse}
+                  hide={collapse}
+                  mode={mode}
+                  pageBreak={breakPointPosition}
+                />
                 <Content>
                   <div style={{ padding: "32px" }}>
                     <React.Suspense fallback={Loading()}>
@@ -184,10 +201,11 @@ const App = () => {
                   style={{
                     textAlign: "center",
                     fontWeight: "bold",
-                    borderTop: "1px solid black",
+                    background: mode === "dark" ? "#001529" : "#fff",
+                    color: mode === "dark" ? "#fff" : "#000",
                   }}
                 >
-                  Copyright © 2020 Created by LiLia Sekai Corp.
+                  Copyright © 2021.
                 </Footer>
                 <BackTop />
               </Layout>

@@ -6,13 +6,13 @@ const KtpList = React.lazy(() => import("./pages/Warga/KTP"));
 const KkList = React.lazy(() => import("./pages/Warga/KK"));
 const StatusWargaList = React.lazy(() => import("./pages/Warga/Status Warga"));
 const PekerjaanWargaList = React.lazy(() => import("./pages/Warga/Pekerjaan"));
-
+const PriceList = React.lazy(() => import("pages/Price List/PriceList"));
 // React.lazy(() => import())
 
 // { path: "",  name: "", component: , exact: },
 
 const routes = [
-  { path: "/", name: "Dashboard", component: Dashboard, exact: true },
+  { path: "/", name: "Price List", component: PriceList, exact: true },
   { path: "/dashboard", name: "Dashboard", component: Dashboard, exact: true },
   { path: "/warga", name: "Warga", component: SemuaWarga, exact: true },
   { path: "/warga/list", name: "List Warga", component: SemuaWarga },

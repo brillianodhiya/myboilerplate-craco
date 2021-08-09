@@ -1,7 +1,11 @@
 @import "~antd/dist/antd.less";
 @font-face {
-  font-family: "Comic Neue", cursive;
-  src: url("https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap");
+  // font-family: "Comic Neue", cursive;
+  // src: url("https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap");
+}
+
+* {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
 // .App {
 //   text-align: center;
@@ -41,14 +45,18 @@
 //     transform: rotate(360deg);
 //   }
 // }
+#root {
+  height: 100%;
+}
+
 .login-form {
   padding: 32px;
   width: 360px;
   position: absolute;
-  top: 45%;
-  left: 50%;
+  // top: 45%;
+  // left: 50%;
   box-shadow: 0 0 100px rgba(0, 0, 0, 0.08);
-  margin: -160px 0 0 -160px;
+  // margin: -160px 0 0 -160px;
 }
 .login-form-forgot {
   float: right;

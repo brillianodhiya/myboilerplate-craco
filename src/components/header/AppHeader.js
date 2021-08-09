@@ -1,13 +1,16 @@
 import React from "react";
-import { Layout, Typography, Dropdown, Menu, message } from "antd";
-import { DownOutlined } from "@ant-design/icons";
+import { Layout, Typography, Dropdown, Menu, message, Button } from "antd";
+import {
+  DownOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+} from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
-import Clock from "react-live-clock";
 
 const { Header } = Layout;
 
-const AppHeader = ({ mode, pageBreak }) => {
+const AppHeader = ({ mode, pageBreak, hide, setHide }) => {
   const authState = useSelector((state) => state);
   const dispatch = useDispatch();
 
@@ -24,7 +27,7 @@ const AppHeader = ({ mode, pageBreak }) => {
       }, 1000);
     }
   }, []);
-  console.log(authState);
+  // console.log(authState);
 
   //   console.log(authState, "AUTHSTATE");
   return (
@@ -35,10 +38,15 @@ const AppHeader = ({ mode, pageBreak }) => {
         background: mode === "dark" ? undefined : "#fff",
       }}
     >
+      <span style={{ float: "left", padding: "0 12px" }}>
+        <Button type="text" size="large" onClick={() => setHide(!hide)}>
+          {hide ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+        </Button>
+      </span>
       <span
         style={{
           float: "left",
-          padding: "20px",
+          padding: "18px 0",
         }}
       >
         {pageBreak ? (
@@ -46,14 +54,14 @@ const AppHeader = ({ mode, pageBreak }) => {
             level={4}
             style={{ color: mode === "dark" ? "#fff" : undefined }}
           >
-            RT 20 App
+            WASP
           </Typography.Title>
         ) : (
           <Typography.Title
             level={4}
             style={{ color: mode === "dark" ? "#fff" : undefined }}
           >
-            RT 20 App || <Clock format={"LLLL"} ticking={true} />
+            WEIOTS SaaS Platform
           </Typography.Title>
         )}
       </span>

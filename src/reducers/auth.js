@@ -40,6 +40,9 @@ const auth = (
         expiredAt: "Not Set",
       });
 
+    case "AUTH GET":
+      return state;
+
     default:
       return (state.data = {
         loading: false,

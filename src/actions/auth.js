@@ -1,13 +1,13 @@
 import { message } from "antd";
-import Abah from "../assets/abah.jpeg";
+import WEIOTSLOGO from "../assets/logo1.png";
 
 const dataDummy = {
-  username: "imam",
+  username: "admin",
   password: "123456",
-  name: "Imam Mujiono",
+  name: "Admin WASP",
   phone: "08819671476",
-  email: "mujionosingo@gmail.com",
-  photo: Abah,
+  email: "admin@gmail.com",
+  photo: WEIOTSLOGO,
 };
 
 const Login = (data, setLoading, cb) => {
